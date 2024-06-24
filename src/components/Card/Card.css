@@ -1,0 +1,28 @@
+.slider__item {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.slider__img {
+  height: 296px;
+  margin-bottom: 24px;
+}
+
+.slider__descr {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+}
+
+.slider__descr-header {
+  color: var(--color-btn);
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.slider__descr-text {
+  color: var(--text-color);
+  font-size: 24px;
+  font-weight: 400;
+}

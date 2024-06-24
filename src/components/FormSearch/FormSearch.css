@@ -1,0 +1,76 @@
+.top-section {
+  min-height: 400px;
+  background-image: url("../../img/castelmezzano.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.search {
+  display: flex;
+  align-items: flex-end;
+  padding-top: 124px;
+  height: 64px;
+  border-radius: 8px;
+}
+
+.search__input {
+  color: var(--text-color-main);
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+}
+.search__input--width {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 314px;
+}
+
+.border:hover {
+  border: 3px solid var(--accent-color-line);
+}
+
+.serch--height {
+  height: 64px;
+  border-radius: 8px;
+  border: 3px solid var(--stroke-color-main);
+  background-color: white;
+}
+
+.--yellow {
+  border: 3px solid var(--accent-color-line);
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.column > label {
+  color: var(--general-text-color);
+  margin-bottom: 24px;
+  margin-left: 24px;
+  text-align: left;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.serch__btn {
+  width: 192px;
+  height: 64px;
+  cursor: pointer;
+  background-color: var(--color-btn);
+  border: 8px solid var(--color-btn);
+  color: var(--general-text-color);
+  text-align: center;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.apps {
+  padding: 120px 0;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
