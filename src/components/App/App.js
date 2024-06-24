@@ -7,7 +7,6 @@ import { dataHomes } from "../Homes/const";
 
 import "./App.css";
 
-
 export const App = () => {
   const [value, setValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -40,8 +39,8 @@ export const App = () => {
     <>
       <FormSearch onSubmit={formSubmit} onChange={formChange} />
       {console.log(searchResults)}
-      <Homes title="Available hotels" dataHomes = {searchResults}/>
-      <Homes title="Homes guests loves" dataHomes = {dataHomes}/>
+      <Homes title="Available hotels" dataHomes={searchResults} />
+      <Homes title="Homes guests loves" dataHomes={dataHomes} />
     </>
   );
 };
