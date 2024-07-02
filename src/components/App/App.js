@@ -38,7 +38,6 @@ export const App = () => {
   return (
     <>
       <FormSearch onSubmit={formSubmit} onChange={formChange} />
-      {console.log(searchResults)}
       <Homes title="Available hotels" dataHomes={searchResults} />
       <Homes title="Homes guests loves" dataHomes={dataHomes} />
     </>
