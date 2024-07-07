@@ -1,9 +1,9 @@
 import { hotelsUrl } from "../const";
 
-export const getHotels = async (value) => {
+export const getHotels =  (value) => {
   const urlHotels = new URL(hotelsUrl);
   urlHotels.searchParams.append("search", value);
-  const res = await fetch(urlHotels);
+  const res =  fetch(urlHotels).then((hotels) => hotels.json());
 
-  return res.json();
+  return res;
 };

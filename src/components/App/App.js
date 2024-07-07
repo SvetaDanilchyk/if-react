@@ -1,32 +1,37 @@
-import React, { useState } from "react";
+import React, {  useState, useDebugValue } from "react";
+import { useContext } from 'react';
 
 //components
 import { Homes } from "../Homes";
 import { FormSearch } from "../FormSearch";
-import { dataHomes } from "../Homes/const";
+import { CardsContext } from "../../context/Home.context";
+import { useCards } from "../../hook/useCards";
 
+import { Loader } from "../Loader/Loader";
 import "./App.css";
 
 export const App = () => {
   const [value, setValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const {cards, setCards} = useContext(CardsContext);
+  const {loading} = useCards();   
   const res = [];
 
   const formChange = (event) => {
-    const value = event.target.value;
-    setValue(value);
+    setValue(event.target.value);
   };
 
   const getResultSearch = () => {
-    dataHomes.map((item) => {
-      if (
-        item.name.toLowerCase().includes(value.toLowerCase()) ||
-        item.city.toLowerCase().includes(value.toLowerCase()) ||
-        item.country.toLowerCase().includes(value.toLowerCase())
-      ) {
-        res.push(item);
-      }
-    });
+
+   cards.map(item => {
+    if (
+      item.name.toLowerCase().includes(value.toLowerCase()) ||
+      item.city.toLowerCase().includes(value.toLowerCase()) ||
+      item.country.toLowerCase().includes(value.toLowerCase())
+    ) {
+      res.push(item);
+    }
+   });
     return setSearchResults(res);
   };
 
@@ -35,11 +40,17 @@ export const App = () => {
     event.preventDefault();
   };
 
+  useDebugValue({cards, setCards});
+
   return (
     <>
       <FormSearch onSubmit={formSubmit} onChange={formChange} />
-      <Homes title="Available hotels" dataHomes={searchResults} />
-      <Homes title="Homes guests loves" dataHomes={dataHomes} />
+          <Homes title="Available hotels" dataHomes={searchResults}/>
+          <Loader loadar = {loading}>       
+            <Homes title="Homes guests loves" dataHomes={cards} />
+          </Loader>        
     </>
   );
 };
+
+

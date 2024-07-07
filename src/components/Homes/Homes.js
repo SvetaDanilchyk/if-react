@@ -6,7 +6,7 @@ import { Conntainer } from "../Container";
 import { Card } from "../Card";
 import { BtnArrow } from "../BtnArrow/BtnArrow";
 
-export const Homes = ({ title, dataHomes }) => (
+export const Homes = ({ title,dataHomes}) => (
   <section className="homes">
     <Conntainer>
       <h2 className="title">{title}</h2>
