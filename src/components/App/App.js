@@ -1,5 +1,5 @@
-import React, {  useState, useDebugValue } from "react";
-import { useContext } from 'react';
+import React, { useState, useDebugValue } from "react";
+import { useContext } from "react";
 
 //components
 import { Homes } from "../Homes";
@@ -13,8 +13,8 @@ import "./App.css";
 export const App = () => {
   const [value, setValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const {cards, setCards} = useContext(CardsContext);
-  const {loading} = useCards();   
+  const { cards, setCards } = useContext(CardsContext);
+  const { loading } = useCards();
   const res = [];
 
   const formChange = (event) => {
@@ -22,16 +22,15 @@ export const App = () => {
   };
 
   const getResultSearch = () => {
-
-   cards.map(item => {
-    if (
-      item.name.toLowerCase().includes(value.toLowerCase()) ||
-      item.city.toLowerCase().includes(value.toLowerCase()) ||
-      item.country.toLowerCase().includes(value.toLowerCase())
-    ) {
-      res.push(item);
-    }
-   });
+    cards.map((item) => {
+      if (
+        item.name.toLowerCase().includes(value.toLowerCase()) ||
+        item.city.toLowerCase().includes(value.toLowerCase()) ||
+        item.country.toLowerCase().includes(value.toLowerCase())
+      ) {
+        res.push(item);
+      }
+    });
     return setSearchResults(res);
   };
 
@@ -40,17 +39,15 @@ export const App = () => {
     event.preventDefault();
   };
 
-  useDebugValue({cards, setCards});
+  useDebugValue({ cards, setCards });
 
   return (
     <>
       <FormSearch onSubmit={formSubmit} onChange={formChange} />
-          <Homes title="Available hotels" dataHomes={searchResults}/>
-          <Loader loadar = {loading}>       
-            <Homes title="Homes guests loves" dataHomes={cards} />
-          </Loader>        
+      <Homes title="Available hotels" dataHomes={searchResults} />
+      <Loader loadar={loading}>
+        <Homes title="Homes guests loves" dataHomes={cards} />
+      </Loader>
     </>
   );
 };
-
-
