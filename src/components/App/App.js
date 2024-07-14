@@ -5,7 +5,10 @@ import { useContext } from "react";
 import { Homes } from "../Homes";
 import { FormSearch } from "../FormSearch";
 import { CardsContext } from "../../context/Home.context";
+
+//hook
 import { useCards } from "../../hook/useCards";
+import { useClickOutside } from "../../hook/useClickOutside";
 
 import { Loader } from "../Loader/Loader";
 import "./App.css";
@@ -16,6 +19,8 @@ export const App = () => {
   const { cards, setCards } = useContext(CardsContext);
   const { loading } = useCards();
   const res = [];
+
+  const ref = useClickOutside(() => null);
 
   const formChange = (event) => {
     setValue(event.target.value);
@@ -43,7 +48,7 @@ export const App = () => {
 
   return (
     <>
-      <FormSearch onSubmit={formSubmit} onChange={formChange} />
+      <FormSearch ref={ref} onSubmit={formSubmit} onChange={formChange} />
       <Homes title="Available hotels" dataHomes={searchResults} />
       <Loader loadar={loading}>
         <Homes title="Homes guests loves" dataHomes={cards} />

@@ -2,17 +2,22 @@ import React from "react";
 
 import "./PopupWindow.css";
 import { Button } from "../Button";
+import { SelectYears } from "../SelectYears/SelectYears";
 
-export const PopupWindow = () => (
-  <div className="popup-window">
-    <div
-      id="input-param"
-      className="search__input search__input--width serch--height border jsInput"
-    >
-      Adults - 1 Children - 0 Room - 1
-    </div>
+export const PopupWindow = ({
+  onChangeParamMinus,
+  onChangeParamPlus,
+  adults,
+  children,
+  room,
+}) => {
+  const selectYearsComponents = [];
+  for (let i = 0; i < children; i++) {
+    selectYearsComponents.push(<SelectYears key={i} />);
+  }
 
-    <div className="add-input deactive">
+  return (
+    <div className="add-input">
       <div className="add-input__item">
         <span>Adults</span>
         <div className="wrap-btn">
@@ -20,17 +25,21 @@ export const PopupWindow = () => (
             id="btn-minus-adults"
             type="button"
             className="wrap-btn__item --active-btn-color"
+            name="adults"
+            onClick={onChangeParamMinus}
           >
             -
           </Button>
 
           <div id="amount-adults" className="wrap-btn__number">
-            1
+            {adults}
           </div>
           <Button
             id="btn-plus-adults"
             type="button"
             className="wrap-btn__item --active-btn-color"
+            name="adults"
+            onClick={onChangeParamPlus}
           >
             +
           </Button>
@@ -43,16 +52,20 @@ export const PopupWindow = () => (
             id="btn-minus-children"
             type="button"
             className="wrap-btn__item --active-btn-color"
+            name="children"
+            onClick={onChangeParamMinus}
           >
             -
           </Button>
           <div id="amount-children" className="wrap-btn__number">
-            0
+            {children}
           </div>
           <Button
             id="btn-plus-children"
             type="button"
             className="wrap-btn__item --active-btn-color"
+            name="children"
+            onClick={onChangeParamPlus}
           >
             +
           </Button>
@@ -65,28 +78,34 @@ export const PopupWindow = () => (
             id="btn-minus-room"
             type="button"
             className="wrap-btn__item --active-btn-color"
+            name="room"
+            onClick={onChangeParamMinus}
           >
             -
           </Button>
 
           <div id="amount-room" className="wrap-btn__number">
-            1
+            {room}
           </div>
 
           <Button
             id="btn-plus-room"
             type="button"
             className="wrap-btn__item --active-btn-color"
+            name="room"
+            onClick={onChangeParamPlus}
           >
             +
           </Button>
         </div>
       </div>
 
-      <div className="add-input__text deactive">
-        What is the age of the child you’re travelling with?
-      </div>
-      <div className="js-wrapper"></div>
+      {children > 0 ? (
+        <div className="add-input__text">
+          What is the age of the child you’re travelling with?
+          <div className="js-wrapper">{selectYearsComponents}</div>
+        </div>
+      ) : null}
     </div>
-  </div>
-);
+  );
+};
