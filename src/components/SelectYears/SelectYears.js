@@ -1,7 +1,9 @@
 import React from "react";
 
+import "./SelectYears.css";
+
 export const SelectYears = () => (
-  <select class="--select-years --text-12 js--select" name="select">
+  <select class="--select-years" name="select">
     <option value="0">0 years old</option>
     <option value="1">1 years old</option>
     <option value="2">2 years old</option>

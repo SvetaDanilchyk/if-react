@@ -14,11 +14,8 @@
   margin: 50px 0;
   align-items: space-between;
   justify-content: space-around;
-  /*  column-gap: 16px; */
   position: relative;
-
-  flex-wrap: wrap;
-  column-gap: 8px;
+  column-gap: 16px;
 }
 
 .slider__item {

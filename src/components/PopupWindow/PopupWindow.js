@@ -1,8 +1,7 @@
-import React from "react";
+import React from "react"; // {useState, useMemo }
 
 import "./PopupWindow.css";
 import { Button } from "../Button";
-import { SelectYears } from "../SelectYears/SelectYears";
 
 export const PopupWindow = ({
   onChangeParamMinus,
@@ -10,12 +9,8 @@ export const PopupWindow = ({
   adults,
   children,
   room,
+  selectYearsComponents,
 }) => {
-  const selectYearsComponents = [];
-  for (let i = 0; i < children; i++) {
-    selectYearsComponents.push(<SelectYears key={i} />);
-  }
-
   return (
     <div className="add-input">
       <div className="add-input__item">

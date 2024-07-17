@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 
 //components
 import "./FormSearch.css";
@@ -6,11 +6,16 @@ import { SearchInput } from "../SearchInput";
 import { Button } from "../Button";
 import { Conntainer } from "../Container/Container";
 import { PopupWindow } from "../PopupWindow";
+import { SelectYears } from "../SelectYears/SelectYears";
 
 export const FormSearch = ({ onSubmit, onChange }) => {
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
   const [room, setRoom] = useState(1);
+
+  const selectYearsComponents = useMemo(() => {
+    return [...Array(children)].map((_, index) => <SelectYears key={index} />);
+  }, [children]);
 
   const onChangeParamMinus = (e) => {
     if (e.target.name === "adults") {
@@ -63,6 +68,7 @@ export const FormSearch = ({ onSubmit, onChange }) => {
               adults={adults}
               children={children}
               room={room}
+              selectYearsComponents={selectYearsComponents}
             />
           </div>
 

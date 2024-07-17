@@ -44,12 +44,12 @@ export const App = () => {
     event.preventDefault();
   };
 
-  useDebugValue({ cards, setCards });
-
   return (
     <>
       <FormSearch ref={ref} onSubmit={formSubmit} onChange={formChange} />
-      <Homes title="Available hotels" dataHomes={searchResults} />
+      {searchResults.length > 0 ? (
+        <Homes title="Available hotels" dataHomes={searchResults} />
+      ) : null}
       <Loader loadar={loading}>
         <Homes title="Homes guests loves" dataHomes={cards} />
       </Loader>
