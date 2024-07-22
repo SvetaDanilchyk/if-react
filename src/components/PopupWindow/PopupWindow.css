@@ -8,14 +8,15 @@
   display: block;
 }
 .add-input {
+  visibility: hidden;
   width: 100%;
   position: relative;
   padding: 22px;
   background-color: var(--general-text-color);
   border-radius: 8px;
   padding-bottom: 22px;
-  top: 12px;
   z-index: 1;
+  transform: translateY(10%);
 }
 .add-input__text {
   padding-top: 12px;
@@ -50,6 +51,11 @@
   padding-right: 20px;
   max-width: 48px;
 }
+
+.deactive {
+  display: none;
+}
+
 .--select-years {
   margin-top: 12px;
 }
