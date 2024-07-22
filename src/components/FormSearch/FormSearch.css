@@ -1,5 +1,6 @@
 .top-section {
-  min-height: 400px;
+  padding-top: 350px;
+  min-height: 1200px;
   background-image: url("../../img/castelmezzano.jpg");
   background-size: cover;
   background-position: center center;

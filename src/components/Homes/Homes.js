@@ -11,6 +11,7 @@ export const Homes = ({ title, dataHomes }) => {
     () => (dataHomes.length > 4 ? dataHomes.slice(0, 4) : dataHomes),
     [dataHomes],
   );
+
   return (
     <section className="homes">
       <Conntainer>
