@@ -12,6 +12,7 @@ export function fetchData(url) {
 
 async function getData(url) {
   if (url === hotelsUrl) {
+    await new Promise(resolve => setTimeout(resolve, 1000));
     return await getHotels();
   } else {
     throw Error("Not implemented");
@@ -19,29 +20,30 @@ async function getData(url) {
 }
 
 export const wrapPromise = (promise) => {
-  console.log("wrapPromise ", promise);
-  if (promise.status === "fulfilled") {
-    console.log("fulfilled", promise.status);
-    return promise.value;
-  } else if (promise.status === "rejected") {
-    console.log("rejected", promise.status);
-    throw promise.reason;
-  } else if (promise.status === "pending") {
-    console.log("pending", promise.status);
-    throw promise;
-  } else {
-    promise.status = "pending";
-    console.log("promise", promise);
-    promise.then(
-      (result) => {
-        promise.status = "fulfilled";
-        promise.value = result;
-      },
-      (reason) => {
-        promise.status = "rejected";
-        promise.reason = reason;
-      },
-    );
-    throw promise;
-  }
+  let status = "pending";
+  let result;
+  let error;
+
+  const suspender = promise.then(
+    (res) => {
+      status = "fulfilled";
+      result = res;
+    },
+    (err) => {
+      status = "rejected";
+      error = err;
+    }
+  );
+
+  return {
+    read() {
+      if (status === "pending") {
+        throw suspender;
+      } else if (status === "rejected") {
+        throw error;
+      } else if (status === "fulfilled") {
+        return result;
+      }
+    },
+  };
 };

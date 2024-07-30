@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import classNames from "classnames";
+import PropTypes from "prop-types";
 
 import "./SearchInput.css";
 
@@ -21,3 +22,16 @@ export const SearchInput = memo(
     );
   },
 );
+
+SearchInput.propTypes = {
+  label: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  classNameDiv: PropTypes.string,
+  className: PropTypes.string,
+};
+
+SearchInput.defaultProps = {
+  classNameDiv: '',
+  className: '',
+};

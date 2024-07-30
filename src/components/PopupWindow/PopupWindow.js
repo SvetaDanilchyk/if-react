@@ -1,6 +1,8 @@
-import React, { memo } from "react"; // {useState, useMemo }
+import React, { memo } from "react"; 
+import PropTypes from "prop-types";
 
 import "./PopupWindow.css";
+
 import { Button } from "../Button";
 
 export const PopupWindow = memo(
@@ -106,3 +108,13 @@ export const PopupWindow = memo(
     );
   },
 );
+
+
+PopupWindow.propTypes = {
+  onChangeParamMinus: PropTypes.func.isRequired,
+  onChangeParamPlus: PropTypes.func.isRequired,
+  adults: PropTypes.number.isRequired,
+  children: PropTypes.number.isRequired,
+  room: PropTypes.number.isRequired,
+  selectYearsComponents: PropTypes.arrayOf(PropTypes.element).isRequired,
+};

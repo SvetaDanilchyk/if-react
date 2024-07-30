@@ -1,18 +1,13 @@
-import React, {
-  useState,
-  useMemo,
-  useCallback,
-  useRef,
-  useEffect,
-} from "react";
+import React, { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import PropTypes from "prop-types";
 
-//components
 import "./FormSearch.css";
+
 import { SearchInput } from "../SearchInput";
 import { Button } from "../Button";
-import { Conntainer } from "../Container/Container";
+import { Conntainer } from "../Container";
 import { PopupWindow } from "../PopupWindow";
-import { SelectYears } from "../SelectYears/SelectYears";
+import { SelectYears } from "../SelectYears";
 import { Homes } from "../Homes";
 
 export const FormSearch = ({ onSubmit, onChange, searchResults }) => {
@@ -111,4 +106,11 @@ export const FormSearch = ({ onSubmit, onChange, searchResults }) => {
       </div>
     </>
   );
+};
+
+FormSearch.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  searchResults: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };

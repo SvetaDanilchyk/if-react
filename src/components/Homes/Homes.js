@@ -1,10 +1,12 @@
 import React, { useMemo } from "react";
+import PropTypes from "prop-types";
+
+import "./Homes.css";
 
 //components
-import "./Homes.css";
 import { Conntainer } from "../Container";
 import { Card } from "../Card";
-import { BtnArrow } from "../BtnArrow/BtnArrow";
+import { BtnArrow } from "../BtnArrow/";
 
 export const Homes = ({ title, dataHomes }) => {
   const prepareHotels = useMemo(
@@ -27,4 +29,9 @@ export const Homes = ({ title, dataHomes }) => {
       </Conntainer>
     </section>
   );
+};
+
+Homes.propTypes = {
+  title: PropTypes.string.isRequired,
+  dataHomes: PropTypes.arrayOf(PropTypes.element).isRequired,
 };
