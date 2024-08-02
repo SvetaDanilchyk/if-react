@@ -1,15 +1,17 @@
 import React, { createContext } from "react";
-import { useCards } from "../hook/useCards";
+
+import { wrapPromise, fetchData } from "../lib/wrapPromise";
+import { hotelsUrl } from "../services/const";
 
 export const CardsContext = createContext({
-  cards: [],
-  setCards: () => {},
+  cardsPromise: null,
 });
 
 export const CardsProvider = ({ children }) => {
-  const { cards } = useCards();
-
+  const cardsPromise = wrapPromise(fetchData(hotelsUrl));
   return (
-    <CardsContext.Provider value={{ cards }}>{children}</CardsContext.Provider>
+    <CardsContext.Provider value={{ cardsPromise }}>
+      {children}
+    </CardsContext.Provider>
   );
 };

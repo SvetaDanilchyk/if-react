@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 
 import "./SelectYears.css";
 
-export const SelectYears = () => (
+export const SelectYears = memo(() => (
   <select class="--select-years" name="select">
     <option value="0">0 years old</option>
     <option value="1">1 years old</option>
@@ -23,4 +23,4 @@ export const SelectYears = () => (
     <option value="16">16 years old</option>
     <option value="17">17 years old</option>
   </select>
-);
+));

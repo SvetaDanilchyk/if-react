@@ -1,58 +1,62 @@
-import React, { useState, useDebugValue } from "react";
-import { useContext } from "react";
+import React, { useState, useContext, Suspense } from "react";
 
-//components
+import "./App.css";
+
+import { Loader } from "../Loader";
 import { Homes } from "../Homes";
 import { FormSearch } from "../FormSearch";
 import { CardsContext } from "../../context/Home.context";
 
-//hook
-import { useCards } from "../../hook/useCards";
-import { useClickOutside } from "../../hook/useClickOutside";
-
-import { Loader } from "../Loader/Loader";
-import "./App.css";
+const HomesWithSuspense = () => {
+  const { cardsPromise } = useContext(CardsContext);
+  const dataHomes = cardsPromise.read();
+  return <Homes title="Homes guests love" dataHomes={dataHomes} />;
+};
 
 export const App = () => {
   const [value, setValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const { cards, setCards } = useContext(CardsContext);
-  const { loading } = useCards();
-  const res = [];
+  const [isLoading, setIsLoading] = useState(false); 
+  const { cardsPromise } = useContext(CardsContext);
 
-  const ref = useClickOutside(() => null);
 
   const formChange = (event) => {
     setValue(event.target.value);
   };
 
   const getResultSearch = () => {
-    cards.map((item) => {
-      if (
+    setIsLoading(true); 
+    
+    setTimeout(() => {
+      const cards = cardsPromise.read();
+      const res = cards.filter(item =>
         item.name.toLowerCase().includes(value.toLowerCase()) ||
         item.city.toLowerCase().includes(value.toLowerCase()) ||
         item.country.toLowerCase().includes(value.toLowerCase())
-      ) {
-        res.push(item);
-      }
-    });
-    return setSearchResults(res);
+      );
+      setSearchResults(res);
+      setIsLoading(false); 
+    }, 1000); 
   };
 
   const formSubmit = (event) => {
-    getResultSearch();
     event.preventDefault();
+    getResultSearch();
   };
 
   return (
     <>
-      <FormSearch ref={ref} onSubmit={formSubmit} onChange={formChange} />
-      {searchResults.length > 0 ? (
-        <Homes title="Available hotels" dataHomes={searchResults} />
-      ) : null}
-      <Loader loadar={loading}>
-        <Homes title="Homes guests loves" dataHomes={cards} />
-      </Loader>
+      <Suspense fallback={<Loader />}>
+        {isLoading ? (
+          <Loader /> 
+        ) : (         
+          <FormSearch onSubmit={formSubmit} onChange={formChange} searchResults={searchResults}/>
+        )}
+      </Suspense>
+      
+      <Suspense fallback={<Loader />}>
+        <HomesWithSuspense />
+      </Suspense>
     </>
   );
 };
