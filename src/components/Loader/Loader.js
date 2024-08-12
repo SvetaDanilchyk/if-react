@@ -1,7 +1,9 @@
 import React from "react";
 
-import loadingImg from "../../img/loading.gif";
 import "./Loader.css";
+
+//img
+import loadingImg from "../../img/loading.gif";
 
 export const Loader = () => (
   <div className="loader">

@@ -3,14 +3,17 @@ import PropTypes from "prop-types";
 
 import "./FormSearch.css";
 
+//components
 import { SearchInput } from "../SearchInput";
 import { Button } from "../Button";
 import { Conntainer } from "../Container";
 import { PopupWindow } from "../PopupWindow";
 import { SelectYears } from "../SelectYears";
 import { Homes } from "../Homes";
+import { Header } from "../Header";
+import { Loader } from "../Loader";
 
-export const FormSearch = ({ onSubmit, onChange, searchResults }) => {
+export const FormSearch = ({ onSubmit, onChange, searchResults, isLoading }) => {
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
   const [room, setRoom] = useState(1);
@@ -56,6 +59,10 @@ export const FormSearch = ({ onSubmit, onChange, searchResults }) => {
     <>
       <section className="top-section">
         <Conntainer>
+          <Header/>
+          <h1 className="header__title">
+            Discover stays to live, work or just relax
+          </h1>
           <form className="search" onSubmit={onSubmit}>
             <SearchInput
               classNameDiv="search__input search__input--width-hotel"
@@ -92,14 +99,16 @@ export const FormSearch = ({ onSubmit, onChange, searchResults }) => {
               id="btn-search"
               type="submit"
               className="serch__btn serch--height gr-xs-4"
+              disabled={isLoading}
             >
-              Search
+              {isLoading ? 'Loading...' : 'Search'}
             </Button>
           </form>
         </Conntainer>
       </section>
 
       <div ref={sectionRef}>
+        {isLoading && <Loader/>}
         {searchResults.length > 0 ? (
           <Homes title="Available hotels" dataHomes={searchResults} />
         ) : null}

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import "./PopupWindow.css";
 
+//components
 import { Button } from "../Button";
 
 export const PopupWindow = memo(

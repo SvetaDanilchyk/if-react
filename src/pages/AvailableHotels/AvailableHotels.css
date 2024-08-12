@@ -1,0 +1,8 @@
+.slider__items {
+    display: flex;
+    margin: 50px 0;
+    align-items: space-between;
+    justify-content: space-around;
+    position: relative;
+    column-gap: 16px;
+}

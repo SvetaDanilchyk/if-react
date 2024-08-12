@@ -1,6 +1,7 @@
 import React, { createContext } from "react";
-
 import { wrapPromise, fetchData } from "../lib/wrapPromise";
+
+//const
 import { hotelsUrl } from "../services/const";
 
 export const CardsContext = createContext({
