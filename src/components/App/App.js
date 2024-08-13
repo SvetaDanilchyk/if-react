@@ -1,10 +1,21 @@
-import React, { useState, useContext, Suspense } from "react";
+import React, { useState, useContext, useEffect, Suspense } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 import "./App.css";
 
+//hook
+import { useAuth } from "../../context/Auth.context"; 
+
+//components
 import { Loader } from "../Loader";
 import { Homes } from "../Homes";
 import { FormSearch } from "../FormSearch";
+import { Sprite } from "../Sprite";
+
+//const
+import { PATH } from "../../constans/paths";
+
+//context
 import { CardsContext } from "../../context/Home.context";
 
 const HomesWithSuspense = () => {
@@ -16,17 +27,25 @@ const HomesWithSuspense = () => {
 export const App = () => {
   const [value, setValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [isLoading, setIsLoading] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
   const { cardsPromise } = useContext(CardsContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate(PATH.authPage); 
+    }
+  }, [isAuthenticated, navigate]);
 
   const formChange = (event) => {
     setValue(event.target.value);
   };
 
   const getResultSearch = () => {
-    setIsLoading(true); 
-    
+    setIsLoading(true);
+
     setTimeout(() => {
       const cards = cardsPromise.read();
       const res = cards.filter(item =>
@@ -35,8 +54,8 @@ export const App = () => {
         item.country.toLowerCase().includes(value.toLowerCase())
       );
       setSearchResults(res);
-      setIsLoading(false); 
-    }, 1000); 
+      setIsLoading(false);
+    }, 1000);
   };
 
   const formSubmit = (event) => {
@@ -46,17 +65,26 @@ export const App = () => {
 
   return (
     <>
-      <Suspense fallback={<Loader />}>
-        {isLoading ? (
-          <Loader /> 
-        ) : (         
-          <FormSearch onSubmit={formSubmit} onChange={formChange} searchResults={searchResults}/>
-        )}
-      </Suspense>
-      
-      <Suspense fallback={<Loader />}>
-        <HomesWithSuspense />
-      </Suspense>
+      <Sprite />
+      {location.pathname === PATH.index ? (
+        <>
+          <Suspense fallback={<Loader />}>
+            {isLoading ? (
+              <Loader />
+            ) : (
+              <FormSearch onSubmit={formSubmit} onChange={formChange} searchResults={searchResults} />
+            )}
+          </Suspense>
+
+          <Suspense fallback={<Loader />}>
+            <HomesWithSuspense />
+          </Suspense>
+        </>
+      ) : (
+        <Suspense fallback={<Loader />}>
+          <Outlet />
+        </Suspense>
+      )}
     </>
   );
 };

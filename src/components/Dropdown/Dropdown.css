@@ -1,0 +1,17 @@
+.dropdown {
+  position: absolute; 
+  top: 100%;
+  right: 0; 
+  width: 100px; 
+  z-index: 1;
+  cursor: pointer; 
+  background-color: var(--general-text-color); 
+  border-radius: 8px;
+}
+
+.dropdown-menu {
+  list-style-type: none;
+  padding: 10px;
+  margin-top: 5px;
+}
+
