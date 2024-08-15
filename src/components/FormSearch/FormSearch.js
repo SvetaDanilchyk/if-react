@@ -1,5 +1,11 @@
-import React, { useState, useMemo, useCallback, useRef, useEffect } from "react";
-import PropTypes from "prop-types";
+import React, {
+  useState,
+  useMemo,
+  useCallback,
+  useRef,
+  useEffect,
+} from "react";
+import { useDispatch } from "react-redux";
 
 import "./FormSearch.css";
 
@@ -13,11 +19,17 @@ import { Homes } from "../Homes";
 import { Header } from "../Header";
 import { Loader } from "../Loader";
 
-export const FormSearch = ({ onSubmit, onChange, searchResults, isLoading }) => {
+//store
+import { searchHotels } from "../../store/actions/search.actions";
+
+export const FormSearch = ({ searchResults, isLoading }) => {
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
   const [room, setRoom] = useState(1);
   const sectionRef = useRef(null);
+  const dispatch = useDispatch();
+  const [query, setQuery] = useState("");
+  const [isSearchRes, setIsSearchRes] = useState(false);
 
   const selectYearsComponents = useMemo(() => {
     return [...Array(children)].map((_, index) => <SelectYears key={index} />);
@@ -55,22 +67,37 @@ export const FormSearch = ({ onSubmit, onChange, searchResults, isLoading }) => 
     }
   }, [searchResults]);
 
+  const formChange = (e) => {
+    setQuery(e.target.value);
+  };
+
+  const getResultSearch = (query) => {
+    dispatch(searchHotels(query));
+    setIsSearchRes(true);
+  };
+
+  const formSubmit = (e) => {
+    e.preventDefault();
+    getResultSearch(query);
+  };
+
   return (
     <>
       <section className="top-section">
         <Conntainer>
-          <Header/>
+          <Header />
           <h1 className="header__title">
             Discover stays to live, work or just relax
           </h1>
-          <form className="search" onSubmit={onSubmit}>
+          <form className="search" onSubmit={formSubmit}>
             <SearchInput
               classNameDiv="search__input search__input--width-hotel"
               label="Your destination or hotel name"
               id="hotel-name"
               type="text"
               className="serch--height"
-              onChange={onChange}
+              value={query}
+              onChange={formChange}
             />
 
             <SearchInput
@@ -101,25 +128,18 @@ export const FormSearch = ({ onSubmit, onChange, searchResults, isLoading }) => 
               className="serch__btn serch--height gr-xs-4"
               disabled={isLoading}
             >
-              {isLoading ? 'Loading...' : 'Search'}
+              Search
             </Button>
           </form>
         </Conntainer>
       </section>
 
       <div ref={sectionRef}>
-        {isLoading && <Loader/>}
-        {searchResults.length > 0 ? (
+        {isLoading && <Loader />}
+        {isSearchRes ? (
           <Homes title="Available hotels" dataHomes={searchResults} />
         ) : null}
       </div>
     </>
   );
-};
-
-FormSearch.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  searchResults: PropTypes.array.isRequired,
-  isLoading: PropTypes.bool.isRequired,
 };

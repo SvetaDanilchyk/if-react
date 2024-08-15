@@ -1,18 +1,22 @@
 import React from "react";
-import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+} from "react-router-dom";
 
-//components
+// components
 import { App } from "../components/App";
 
-//context
+// context
 import { AuthProvider } from "../context/Auth.context";
 import { CardsProvider } from "../context/Home.context";
 
-//pages
-import { AuthPage } from "../pages/AuthPage/AuthPage";
+// pages
 import { AvailableHotels } from "../pages/AvailableHotels";
+import { Login } from "../pages/Login/Login";
 
-//constans
+// constans
 import { PAGE, PATH } from "../constans/paths";
 
 const AppWrapper = () => (
@@ -24,10 +28,10 @@ const AppWrapper = () => (
 );
 
 export const router = createBrowserRouter(
-    createRoutesFromElements(
-       <Route path={PATH.index} element={<AppWrapper />} > 
-         <Route path={PAGE.availableHotels} element={<AvailableHotels />} />
-         <Route path={PAGE.registerPage}  element={<AuthPage />} />
-       </Route>
-    )
+  createRoutesFromElements(
+    <Route path={PATH.index} element={<AppWrapper />}>
+      <Route path={PAGE.availableHotels} element={<AvailableHotels />} />
+      <Route path={PAGE.login} element={<Login />} />
+    </Route>,
+  ),
 );

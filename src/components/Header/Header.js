@@ -12,11 +12,11 @@ import { Dropdown } from "../Dropdown";
 //routers
 import { PAGE, PATH } from "../../constans/paths";
 
-export const Header = ({style}) => {
+export const Header = ({ style }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleButtonClick = () => {
-    setIsDropdownOpen((prev) => !prev); 
+    setIsDropdownOpen((prev) => !prev);
   };
 
   return (
@@ -51,7 +51,7 @@ export const Header = ({style}) => {
               <use href={`${sprite}#account-circle`} />
             </svg>
           </button>
-          {isDropdownOpen && (<Dropdown />)}
+          {isDropdownOpen && <Dropdown />}
         </li>
         <li className="menu__hamburger">
           <div className="menu__hamburger-item"></div>
@@ -62,5 +62,3 @@ export const Header = ({style}) => {
     </nav>
   );
 };
-
-

@@ -17,7 +17,7 @@ export const AvailableHotels = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`${hotelsUrl}/${hotelId}`) 
+    fetch(`${hotelsUrl}/${hotelId}`)
       .then((response) => response.json())
       .then((data) => {
         setHotel(data);
@@ -29,7 +29,7 @@ export const AvailableHotels = () => {
       });
   }, [hotelId]);
 
-  if (loading) return <Loader/>;
+  if (loading) return <Loader />;
   if (error) return <div>Error: {error.message}</div>;
 
   return (

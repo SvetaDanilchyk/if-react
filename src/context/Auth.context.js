@@ -1,8 +1,8 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 //routers
-import { PATH } from '../constans/paths';
+import { PATH } from "../constans/paths";
 
 export const AuthContext = createContext();
 
@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const savedUser = JSON.parse(localStorage.getItem('user'));
+    const savedUser = JSON.parse(localStorage.getItem("user"));
     if (savedUser) {
       setUser(savedUser);
       setIsAuthenticated(true);
@@ -20,31 +20,37 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const logIn = (email, password) => {
-    const savedUser = JSON.parse(localStorage.getItem('user'));
-    if (savedUser && savedUser.email === email && savedUser.password === password) {
+    const savedUser = JSON.parse(localStorage.getItem("user"));
+    if (
+      savedUser &&
+      savedUser.email === email &&
+      savedUser.password === password
+    ) {
       setIsAuthenticated(true);
       setUser(savedUser);
-      navigate('/');
+      navigate("/");
     } else {
-      alert('Invalid credentials');
+      alert("Invalid credentials");
     }
   };
 
   const logOut = () => {
     setIsAuthenticated(false);
     setUser(null);
-    navigate(PATH.authPage); 
+    navigate(PATH.login);
   };
 
   const register = (userData) => {
-    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem("user", JSON.stringify(userData));
     setIsAuthenticated(true);
     setUser(userData);
-    navigate('/');
+    navigate("/");
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, logIn, logOut, register }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, user, logIn, logOut, register }}
+    >
       {children}
     </AuthContext.Provider>
   );

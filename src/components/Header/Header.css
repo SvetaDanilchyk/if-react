@@ -55,15 +55,15 @@ ul {
 
 @keyframes delim {
   0% {
-      top: 80%;
-      opacity: 0;
+    top: 80%;
+    opacity: 0;
   }
   80% {
-      top: 100%;
-      opacity: 0.7;
+    top: 100%;
+    opacity: 0.7;
   }
   100% {
-      opacity: 1;
+    opacity: 1;
   }
 }
 .logo-btm {
@@ -74,7 +74,7 @@ ul {
 li {
   display: flex;
   justify-content: center;
-  position: relative; 
+  position: relative;
 }
 
 .menu__btn-night {

@@ -1,4 +1,4 @@
-import React, { memo } from "react"; 
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 
 import "./PopupWindow.css";
@@ -109,7 +109,6 @@ export const PopupWindow = memo(
     );
   },
 );
-
 
 PopupWindow.propTypes = {
   onChangeParamMinus: PropTypes.func.isRequired,
