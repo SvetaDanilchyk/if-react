@@ -12,7 +12,7 @@ export function fetchData(url) {
 
 async function getData(url) {
   if (url === hotelsUrl) {
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     return await getHotels();
   } else {
     throw Error("Not implemented");
@@ -32,7 +32,7 @@ export const wrapPromise = (promise) => {
     (err) => {
       status = "rejected";
       error = err;
-    }
+    },
   );
 
   return {

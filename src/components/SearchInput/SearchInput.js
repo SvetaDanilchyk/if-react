@@ -32,6 +32,6 @@ SearchInput.propTypes = {
 };
 
 SearchInput.defaultProps = {
-  classNameDiv: '',
-  className: '',
+  classNameDiv: "",
+  className: "",
 };

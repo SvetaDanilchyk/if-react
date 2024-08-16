@@ -1,15 +1,15 @@
-import React, { useId, useState } from 'react';
+import React, { useId, useState } from "react";
 
-import './AuthPage.css';
+import "./AuthPage.css";
 
 //context
-import { useAuth } from '../../context/Auth.context';
+import { useAuth } from "../../context/Auth.context";
 
 export const AuthPage = () => {
   const emailId = useId();
   const passwordId = useId();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isRegister, setIsRegister] = useState(false);
   const { logIn, register } = useAuth();
 
@@ -17,15 +17,17 @@ export const AuthPage = () => {
     if (isRegister) {
       register({ email, password });
     } else {
-      logIn(email, password); 
+      logIn(email, password);
     }
   };
 
   return (
     <div className="auth">
       <form className="auth__form" onSubmit={(e) => e.preventDefault()}>
-        <h1>{isRegister ? 'Register' : 'Login'}</h1>
-        <label className="auth__label" htmlFor={emailId}>Email</label>
+        <h1>{isRegister ? "Register" : "Login"}</h1>
+        <label className="auth__label" htmlFor={emailId}>
+          Email
+        </label>
         <input
           className="auth__text-field"
           id={emailId}
@@ -34,7 +36,9 @@ export const AuthPage = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <label className="auth__label" htmlFor={passwordId}>Password</label>
+        <label className="auth__label" htmlFor={passwordId}>
+          Password
+        </label>
         <input
           className="auth__text-field"
           id={passwordId}
@@ -44,19 +48,19 @@ export const AuthPage = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button className="auth__button" type="button" onClick={handleSubmit}>
-          {isRegister ? 'Register' : 'Log In'}
+          {isRegister ? "Register" : "Log In"}
         </button>
         <p>
           {isRegister ? (
             <>
-              Already have an account?{' '}
+              Already have an account?{" "}
               <a onClick={() => setIsRegister(false)} className="auth__toggle">
                 Login here
               </a>
             </>
           ) : (
             <>
-              Don't have an account?{' '}
+              Don't have an account?{" "}
               <a onClick={() => setIsRegister(true)} className="auth__toggle">
                 Register here
               </a>
