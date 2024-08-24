@@ -9,7 +9,7 @@ import sprite from "../../img/sprite.svg";
 //components
 import { Dropdown } from "../Dropdown";
 
-//routers
+//constans
 import { PAGE, PATH } from "../../constans/paths";
 
 export const Header = ({ style }) => {
@@ -35,7 +35,7 @@ export const Header = ({ style }) => {
         </li>
         <li className="delimiter">
           <a className="menu__text" href="#">
-            Attractions
+            Attr
           </a>
         </li>
         <li className="menu__text--margin-24">

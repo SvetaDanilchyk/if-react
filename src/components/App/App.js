@@ -4,11 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import "./App.css";
 
-// context
-import { useAuth } from "../../context/Auth.context";
-
 // components
-import { Loader } from "../Loader";
+import { Loader } from "../Loader/Loader";
 import { FormSearch } from "../FormSearch";
 import { Sprite } from "../Sprite";
 import { Homes } from "../Homes";
@@ -17,26 +14,24 @@ import { Homes } from "../Homes";
 import { PATH } from "../../constans/paths";
 
 // store
-import { searchHotels } from "../../store/actions/search.actions";
+import { fetchHomeHotels } from "../../store/slices/search.slice";
 
 export const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isAuthenticated } = useAuth();
   const { homeHotels, searchResults, error } = useSelector(
     (state) => state.search,
   );
+  const { status } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (status !== "loggedIn") {
       navigate(PATH.login);
+    } else {
+      dispatch(fetchHomeHotels());
     }
-  }, [isAuthenticated, navigate]);
-
-  useEffect(() => {
-    dispatch(searchHotels(""));
-  }, [dispatch]);
+  }, [status, navigate, dispatch]);
 
   return (
     <>

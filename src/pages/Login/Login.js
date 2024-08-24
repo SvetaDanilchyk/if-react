@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 //store
-import { setAuthStatus } from "../../store/actions";
+import { setStatus } from "../../store/slices/auth.slice";
 
 //constans
 import { AUTH_STATUSES } from "../../constans/authStatuses";
@@ -24,7 +24,7 @@ export const Login = () => {
     const password = formData.get("password");
 
     if (email && password) {
-      dispatch(setAuthStatus(AUTH_STATUSES.loggedIn));
+      dispatch(setStatus(AUTH_STATUSES.loggedIn));
       navigate(PATH.index);
     }
   };

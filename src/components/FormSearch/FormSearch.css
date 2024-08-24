@@ -23,7 +23,9 @@
 .search__input--width {
   width: 300px;
 }
-
+.search-check__input--width {
+  width: 150px;
+}
 .border:hover {
   border: 3px solid var(--accent-color-line);
 }
