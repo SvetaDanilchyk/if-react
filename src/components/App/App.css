@@ -17,11 +17,6 @@
   font-family: "Roboto", sans-serif;
 }
 
-.wrapper {
-  display: flex;
-  flex-direction: column;
-}
-
 @media (min-width: 1024px) {
   .col-lg-1 {
     width: var(--col-width);

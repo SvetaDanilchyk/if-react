@@ -1,29 +1,35 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 
-import "./Homes.css";
-
 //components
 import { Conntainer } from "../Container";
 import { Card } from "../Card";
 import { BtnArrow } from "../BtnArrow/";
+import { useSliderButtonStyles } from "../Button/Button.styles";
+import { useHomesStyles } from "./Homes.styles";
 
 export const Homes = ({ title, dataHomes }) => {
+  const btnStyles = useSliderButtonStyles();
+  const classes = useHomesStyles();
+
   const prepareHotels = useMemo(
     () => (dataHomes.length > 4 ? dataHomes.slice(0, 4) : dataHomes),
     [dataHomes],
   );
 
   return (
-    <section className="homes">
+    <section className={classes.homes}>
       <Conntainer>
-        <h2 className="title">{title}</h2>
-        <div className="slider__items">
+        <h2 className={classes.title}>{title}</h2>
+        <div className={classes.sliderItems}>
           {prepareHotels.map((data) => (
             <Card key={data.id} {...data} />
           ))}
           {dataHomes.length >= 4 && (
-            <BtnArrow className="right-arrow" classNameBtn="slider__btn" />
+            <BtnArrow
+              className={classes.rightArrow}
+              classNameBtn={btnStyles.root}
+            />
           )}
         </div>
       </Conntainer>

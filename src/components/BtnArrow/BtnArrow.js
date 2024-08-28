@@ -1,8 +1,5 @@
 import React from "react";
 
-//components
-import "./BtnArrow.css";
-
 //icons
 import { Arrow } from "../../icons";
 

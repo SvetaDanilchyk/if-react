@@ -2,7 +2,8 @@ import React, { useId } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import "./Login.css";
+//styles
+import { useLoginStyles } from "./Login.styles";
 
 //store
 import { setStatus } from "../../store/slices/auth.slice";
@@ -12,6 +13,7 @@ import { AUTH_STATUSES } from "../../constans/authStatuses";
 import { PATH } from "../../constans/paths";
 
 export const Login = () => {
+  const classes = useLoginStyles();
   const emailId = useId();
   const passwordId = useId();
   const dispatch = useDispatch();
@@ -30,31 +32,31 @@ export const Login = () => {
   };
 
   return (
-    <div className="login">
-      <form className="login__form" onSubmit={handleSubmit}>
+    <div className={classes.root}>
+      <form className={classes.form} onSubmit={handleSubmit}>
         <h1>Login</h1>
-        <label className="login__label" htmlFor={emailId}>
+        <label className={classes.label} htmlFor={emailId}>
           Email
         </label>
         <input
-          className="login__text-field"
+          className={classes.textField}
           name="email"
           id={emailId}
           type="email"
           autoComplete="off"
           placeholder="Email"
         />
-        <label className="login__label" htmlFor={passwordId}>
+        <label className={classes.label} htmlFor={passwordId}>
           Password
         </label>
         <input
-          className="login__text-field"
+          className={classes.textField}
           name="password"
           id={passwordId}
           type="password"
           placeholder="Password"
         />
-        <button className="login__button" color="primary" type="submit">
+        <button className={classes.button} color="primary" type="submit">
           Log In
         </button>
       </form>

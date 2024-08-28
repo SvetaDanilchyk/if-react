@@ -6,8 +6,10 @@ import React, {
   useEffect,
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import classNames from "classnames";
 
-import "./FormSearch.css";
+// styles
+import { useFormaSearchStyles } from "./FormaSearch.styles";
 
 // components
 import { SearchInput } from "../SearchInput";
@@ -19,13 +21,24 @@ import { Homes } from "../Homes";
 import { Header } from "../Header";
 import { Loader } from "../Loader";
 
-// store
+//store
 import { fetchHotels } from "../../store/slices/search.slice";
 
-export const FormSearch = () => {
+import darkBackgroundImage from "../../img/castelmezzano.jpg";
+import lightBackgroundImage from "../../img/house.jpg";
+
+export const FormSearch = ({ toggleTheme, isDarkMode }) => {
+  const classes = useFormaSearchStyles();
+
+  const backgroundImage = isDarkMode
+    ? darkBackgroundImage
+    : lightBackgroundImage;
+
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
   const [room, setRoom] = useState(1);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+
   const sectionRef = useRef(null);
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
@@ -77,28 +90,39 @@ export const FormSearch = () => {
     dispatch(fetchHotels(search));
   };
 
+  const togglePopup = () => {
+    setIsPopupVisible(!isPopupVisible);
+  };
+
   return (
     <>
-      <section className="top-section">
+      <section
+        className={classes.topSection}
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      >
         <Conntainer>
-          <Header />
-          <h1 className="header__title">
+          <Header toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
+          <h1 className={classes.headerTitle}>
             Discover stays to live, work or just relax
           </h1>
-          <form className="search" onSubmit={formSubmit}>
+          <form className={classes.search} onSubmit={formSubmit}>
             <SearchInput
-              classNameDiv="search__input search__input--width-hotel"
+              classNameDiv={classes.searchDefault}
               label="Your destination or hotel name"
               id="hotel-name"
               type="text"
-              className="serch--height"
+              className={classes.searchTall}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
 
             <SearchInput
               label="Check-in"
-              className="serch--height --yellow"
+              className={classNames(
+                classes.searchLarge,
+                classes.searchTall,
+                classes.borderYellow,
+              )}
               type="date"
               id="check-in-date"
               value={dateFrom}
@@ -107,32 +131,44 @@ export const FormSearch = () => {
 
             <SearchInput
               label="Check-out"
-              className="serch--height --yellow"
+              className={classNames(
+                classes.searchLarge,
+                classes.searchTall,
+                classes.borderYellow,
+              )}
               type="date"
               id="check-out-date"
               value={dateTo}
               onChange={(e) => setDateTo(e.target.value)}
             />
 
-            <div className="search__input search__input--width serch--height border a-react">
-              <div className="search-descr">
+            <div
+              className={classNames(
+                classes.searchLarge,
+                classes.searchTall,
+                classes.border,
+              )}
+            >
+              <div className={classes.searchDescription} onClick={togglePopup}>
                 Adults - {adults} Children - {children} Room - {room}
               </div>
 
-              <PopupWindow
-                onChangeParamMinus={onChangeParamMinus}
-                onChangeParamPlus={onChangeParamPlus}
-                adults={adults}
-                children={children}
-                room={room}
-                selectYearsComponents={selectYearsComponents}
-              />
+              {isPopupVisible && (
+                <PopupWindow
+                  onChangeParamMinus={onChangeParamMinus}
+                  onChangeParamPlus={onChangeParamPlus}
+                  adults={adults}
+                  children={children}
+                  room={room}
+                  selectYearsComponents={selectYearsComponents}
+                />
+              )}
             </div>
 
             <Button
               id="btn-search"
               type="submit"
-              className="serch__btn serch--height gr-xs-4"
+              className={classNames(classes.btn, classes.searchTall)}
               disabled={isLoading}
             >
               Search

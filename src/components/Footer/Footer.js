@@ -1,72 +1,83 @@
 import React from "react";
-
-import "./Footer.css";
+import classNames from "classnames";
+//styles
+import { useFooterStyles } from "./Footer.styles";
+import { useAppStyles } from "../App/App.styles";
+//components
+import { Conntainer } from "../Container/Container";
 
 export const Footer = () => {
+  const classes = useFooterStyles();
+  const mediaClasses = useAppStyles();
   return (
-    <footer className="footer">
-      <div className="container">
-        <svg className="footer__logo">
+    <footer className={classes.footer}>
+      <Conntainer>
+        <svg className={classes.logo}>
           <use href="./src/img/icons/logo-vector.svg#logo-footer" />
         </svg>
 
-        <div className="contacts contacts-width">
+        <div className={classes.contacts}>
           <div>
-            <div className="contacts__title" href="#">
+            <div className={classes.contactsTitle} href="#">
               About
             </div>
-            <a className="contacts__descr" href="#">
+            <a className={classes.contactsDescr} href="#">
               How Triphouse works
             </a>
-            <a className="contacts__descr" href="#">
+            <a className={classes.contactsDescr} href="#">
               Careers
             </a>
-            <a className="contacts__descr" href="#">
+            <a className={classes.contactsDescr} href="#">
               Privacy
             </a>
-            <a className="contacts__descr" href="#">
+            <a className={classes.contactsDescr} href="#">
               Terms
             </a>
           </div>
           <div>
-            <div className="contacts__title" href="#">
+            <div className={classes.contactsTitle} href="#">
               Property types
             </div>
-            <a className="contacts__descr" href="#">
+            <a className={classes.contactsDescr} href="#">
               Guest houses
             </a>
-            <a className="contacts__descr" href="#">
+            <a className={classes.contactsDescr} href="#">
               Hotels
             </a>
-            <a className="contacts__descr" href="#">
+            <a className={classes.contactsDescr} href="#">
               Apartments
             </a>
-            <a className="contacts__descr" href="#">
+            <a className={classes.contactsDescr} href="#">
               Villas
             </a>
-            <a className="contacts__descr" href="#">
+            <a className={classes.contactsDescr} href="#">
               Holiday homes
             </a>
-            <a className="contacts__descr" href="#">
+            <a className={classes.contactsDescr} href="#">
               Hostels
             </a>
           </div>
           <div>
-            <div className="contacts__title" href="#">
+            <div className={classes.contactsTitle} href="#">
               Support
             </div>
-            <a className="contacts__descr" href="#">
+            <a className={classes.contactsDescr} href="#">
               Contact Customer Service
             </a>
-            <a className="contacts__descr" href="#">
+            <a className={classes.contactsDescr} href="#">
               FAQ
             </a>
           </div>
         </div>
-        <strong className="footer__copyright col-xs-3">
+        <strong
+          className={classNames(
+            classes.copyright,
+            mediaClasses.colXs3,
+          )} 
+        >
           &copy; 2020 Triphouse, Inc. All rights reserved
         </strong>
-      </div>
+      </Conntainer>
     </footer>
   );
 };

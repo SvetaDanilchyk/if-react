@@ -10,6 +10,8 @@ import { Loader } from "../../components/Loader";
 //services
 import { hotelsUrl } from "../../services/const";
 
+import { theme } from "../../components/App/App.styles";
+
 export const AvailableHotels = () => {
   const { hotelId } = useParams();
   const [hotel, setHotel] = useState(null);
@@ -34,7 +36,7 @@ export const AvailableHotels = () => {
 
   return (
     <>
-      <Header style={{ backgroundColor: "var(--general-color)" }} />
+      <Header style={{ backgroundColor: `${theme.generalColor}` }} />
       {hotel && <Homes title="Available hotels" dataHomes={[hotel]} />}
       <Footer />
     </>

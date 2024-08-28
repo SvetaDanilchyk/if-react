@@ -2,7 +2,7 @@
   display: flex;
   padding: 120px 0;
   min-height: 625px;
-  background-color: var(--general-color);
+  background-color: theme.generalColor;
 }
 
 .contacts {

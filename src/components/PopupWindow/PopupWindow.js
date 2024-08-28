@@ -1,7 +1,9 @@
 import React, { memo } from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
-import "./PopupWindow.css";
+//styles
+import { usePopupWindowStyles } from "./PopupWindow.styles";
 
 //components
 import { Button } from "../Button";
@@ -15,28 +17,30 @@ export const PopupWindow = memo(
     room,
     selectYearsComponents,
   }) => {
+    const classes = usePopupWindowStyles();
+
     return (
-      <div className="add-input">
-        <div className="add-input__item">
+      <div className={classes.addInput}>
+        <div className={classes.addItem}>
           <span>Adults</span>
-          <div className="wrap-btn">
+          <div className={classes.wrapBtn}>
             <Button
               id="btn-minus-adults"
               type="button"
-              className="wrap-btn__item --active-btn-color"
+              className={classNames(classes.wrapBtnItem, classes.activeBtn)}
               name="adults"
               onClick={onChangeParamMinus}
             >
               -
             </Button>
 
-            <div id="amount-adults" className="wrap-btn__number">
+            <div id="amount-adults" className={classes.wrapBtnNumber}>
               {adults}
             </div>
             <Button
               id="btn-plus-adults"
               type="button"
-              className="wrap-btn__item --active-btn-color"
+              className={classNames(classes.wrapBtnItem, classes.activeBtn)}
               name="adults"
               onClick={onChangeParamPlus}
             >
@@ -44,25 +48,25 @@ export const PopupWindow = memo(
             </Button>
           </div>
         </div>
-        <div className="add-input__item">
+        <div className={classes.addItem}>
           <span>Children</span>
-          <div className="wrap-btn">
+          <div className={classes.wrapBtn}>
             <Button
               id="btn-minus-children"
               type="button"
-              className="wrap-btn__item --active-btn-color"
+              className={classNames(classes.wrapBtnItem, classes.activeBtn)}
               name="children"
               onClick={onChangeParamMinus}
             >
               -
             </Button>
-            <div id="amount-children" className="wrap-btn__number">
+            <div id="amount-children" className={classes.wrapBtnNumber}>
               {children}
             </div>
             <Button
               id="btn-plus-children"
               type="button"
-              className="wrap-btn__item --active-btn-color"
+              className={classNames(classes.wrapBtnItem, classes.activeBtn)}
               name="children"
               onClick={onChangeParamPlus}
             >
@@ -70,27 +74,27 @@ export const PopupWindow = memo(
             </Button>
           </div>
         </div>
-        <div className="add-input__item">
+        <div className={classes.addItem}>
           <span>Room</span>
-          <div className="wrap-btn">
+          <div className={classes.wrapBtn}>
             <Button
               id="btn-minus-room"
               type="button"
-              className="wrap-btn__item --active-btn-color"
+              className={classNames(classes.wrapBtnItem, classes.activeBtn)}
               name="room"
               onClick={onChangeParamMinus}
             >
               -
             </Button>
 
-            <div id="amount-room" className="wrap-btn__number">
+            <div id="amount-room" className={classes.wrapBtnNumber}>
               {room}
             </div>
 
             <Button
               id="btn-plus-room"
               type="button"
-              className="wrap-btn__item --active-btn-color"
+              className={classNames(classes.wrapBtnItem, classes.activeBtn)}
               name="room"
               onClick={onChangeParamPlus}
             >
@@ -100,9 +104,9 @@ export const PopupWindow = memo(
         </div>
 
         {children > 0 ? (
-          <div className="add-input__text">
+          <div className={classes.text}>
             What is the age of the child you’re travelling with?
-            <div className="js-wrapper">{selectYearsComponents}</div>
+            <div className={classes.wrapper}>{selectYearsComponents}</div>
           </div>
         ) : null}
       </div>
