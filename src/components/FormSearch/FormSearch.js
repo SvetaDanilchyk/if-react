@@ -5,11 +5,11 @@ import React, {
   useRef,
   useEffect,
 } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./FormSearch.css";
 
-//components
+// components
 import { SearchInput } from "../SearchInput";
 import { Button } from "../Button";
 import { Conntainer } from "../Container";
@@ -19,21 +19,32 @@ import { Homes } from "../Homes";
 import { Header } from "../Header";
 import { Loader } from "../Loader";
 
-//store
-import { searchHotels } from "../../store/actions/search.actions";
+// store
+import { fetchHotels } from "../../store/slices/search.slice";
 
-export const FormSearch = ({ searchResults, isLoading }) => {
+export const FormSearch = () => {
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
   const [room, setRoom] = useState(1);
   const sectionRef = useRef(null);
   const dispatch = useDispatch();
-  const [query, setQuery] = useState("");
-  const [isSearchRes, setIsSearchRes] = useState(false);
+  const [search, setSearch] = useState("");
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
 
   const selectYearsComponents = useMemo(() => {
     return [...Array(children)].map((_, index) => <SelectYears key={index} />);
   }, [children]);
+
+  const { searchResults = [], isLoading } = useSelector(
+    (state) => state.search,
+  );
+
+  useEffect(() => {
+    if (searchResults.length > 0) {
+      sectionRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [searchResults]);
 
   const onChangeParamMinus = useCallback(
     (e) => {
@@ -61,24 +72,9 @@ export const FormSearch = ({ searchResults, isLoading }) => {
     [adults, children, room],
   );
 
-  useEffect(() => {
-    if (searchResults.length > 0) {
-      sectionRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [searchResults]);
-
-  const formChange = (e) => {
-    setQuery(e.target.value);
-  };
-
-  const getResultSearch = (query) => {
-    dispatch(searchHotels(query));
-    setIsSearchRes(true);
-  };
-
   const formSubmit = (e) => {
     e.preventDefault();
-    getResultSearch(query);
+    dispatch(fetchHotels(search));
   };
 
   return (
@@ -96,15 +92,26 @@ export const FormSearch = ({ searchResults, isLoading }) => {
               id="hotel-name"
               type="text"
               className="serch--height"
-              value={query}
-              onChange={formChange}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
             />
 
             <SearchInput
-              label="Check-in — Check-out"
+              label="Check-in"
               className="serch--height --yellow"
               type="date"
-              id="check-name"
+              id="check-in-date"
+              value={dateFrom}
+              onChange={(e) => setDateFrom(e.target.value)}
+            />
+
+            <SearchInput
+              label="Check-out"
+              className="serch--height --yellow"
+              type="date"
+              id="check-out-date"
+              value={dateTo}
+              onChange={(e) => setDateTo(e.target.value)}
             />
 
             <div className="search__input search__input--width serch--height border a-react">
@@ -136,9 +143,9 @@ export const FormSearch = ({ searchResults, isLoading }) => {
 
       <div ref={sectionRef}>
         {isLoading && <Loader />}
-        {isSearchRes ? (
+        {searchResults.length > 0 && (
           <Homes title="Available hotels" dataHomes={searchResults} />
-        ) : null}
+        )}
       </div>
     </>
   );
