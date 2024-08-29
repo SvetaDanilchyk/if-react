@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import classNames from "classnames";
 
@@ -13,10 +13,10 @@ export const Dropdown = () => {
   const classes = useDropdownStyles();
   const dispatch = useDispatch();
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     dispatch(logout());
     dispatch(resetSearchResults());
-  };
+  }, [dispatch]);
 
   return (
     <div
