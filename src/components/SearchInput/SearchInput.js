@@ -2,18 +2,21 @@ import React, { memo } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 
-import "./SearchInput.css";
+//styles
+import { useFormaSearchStyles } from "../FormSearch/FormaSearch.styles";
 
 export const SearchInput = memo(
   ({ label, id, type, classNameDiv, className, ...props }) => {
+    const classes = useFormaSearchStyles();
     return (
-      <div className={classNames("column", classNameDiv)}>
+      <div className={classNames(classes.column, classNameDiv)}>
         <label for={id}>{label}</label>
         <input
           id={id}
           type={type}
           className={classNames(
-            "search__input search__input--width",
+            classes.searchDefault,
+            classes.searchLarge,
             className,
           )}
           {...props}

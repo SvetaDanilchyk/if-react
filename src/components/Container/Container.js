@@ -1,8 +1,9 @@
 import React from "react";
-import classNames from "classnames";
 
-import "./Container.css";
+import { useContainerStyles } from "./Container.styles";
 
-export const Conntainer = ({ children }) => (
-  <div className={classNames("container")}>{children}</div>
-);
+export const Conntainer = ({ children }) => {
+  const classes = useContainerStyles();
+
+  return <div className={classes.container}>{children}</div>;
+};

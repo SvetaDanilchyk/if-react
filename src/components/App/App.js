@@ -1,14 +1,17 @@
-import React, { useEffect, Suspense } from "react";
+import React, { useEffect, Suspense, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
-import "./App.css";
+import { ThemeProvider } from "react-jss";
 
 // components
 import { Loader } from "../Loader/Loader";
 import { FormSearch } from "../FormSearch";
 import { Sprite } from "../Sprite";
 import { Homes } from "../Homes";
+import { Footer } from "../Footer/Footer";
+
+// theme
+import { darkTheme, lightTheme } from "../../styles.js/theme";
 
 // constans
 import { PATH } from "../../constans/paths";
@@ -17,6 +20,9 @@ import { PATH } from "../../constans/paths";
 import { fetchHomeHotels } from "../../store/slices/search.slice";
 
 export const App = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const theme = isDarkMode ? darkTheme : lightTheme;
+
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -33,24 +39,31 @@ export const App = () => {
     }
   }, [status, navigate, dispatch]);
 
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Sprite />
-      {location.pathname === PATH.index ? (
-        <>
-          <Suspense fallback={<Loader />}>
-            <FormSearch searchResults={searchResults} />
+      <Suspense fallback={<Loader />}>
+        {location.pathname === PATH.index ? (
+          <>
+            <FormSearch
+              searchResults={searchResults}
+              toggleTheme={toggleTheme}
+              isDarkMode={isDarkMode}
+            />
             {error && <div>Error: {error}</div>}
             {!error && homeHotels.length > 0 && (
               <Homes title="Homes guests love" dataHomes={homeHotels} />
             )}
-          </Suspense>
-        </>
-      ) : (
-        <Suspense fallback={<Loader />}>
+            <Footer />
+          </>
+        ) : (
           <Outlet />
-        </Suspense>
-      )}
-    </>
+        )}
+      </Suspense>
+    </ThemeProvider>
   );
 };

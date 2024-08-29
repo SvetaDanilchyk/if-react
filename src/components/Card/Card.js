@@ -1,18 +1,35 @@
+import classNames from "classnames";
 import React from "react";
 import { Link } from "react-router-dom";
+//styles
+import { useCardStyles } from "./Card.styles";
+import { useAppStyles } from "../App/App.styles";
 
-import "./Card.css";
+export const Card = ({ id, name, city, country, imageUrl }) => {
+  const classes = useCardStyles();
+  const mediaClasses = useAppStyles();
 
-export const Card = ({ id, name, city, country, imageUrl }) => (
-  <div id={id} className="slider__item col-lg-4 col-md-4 col-xs-3 ">
-    <Link to={`/hotels/${id}`}>
-      <img className="slider__img col-lg-12" src={imageUrl} alt={name} />
-    </Link>
-    <div className="slider__descr">
-      <div className="slider__descr-header">{name}</div>
-      <div className="slider__descr-text">
-        {city}, {country}
+  return (
+    <div
+      id={id}
+      className={classNames(
+        classes.card,
+        mediaClasses.colLg4,
+        mediaClasses.colMd4,
+        mediaClasses.colXs3,
+      )}
+    >
+      <Link to={`/hotels/${id}`}>
+        <div className={classes.imageWrapper}>
+          <img className={classes.image} src={imageUrl} alt={name} />
+        </div>
+      </Link>
+      <div className={classes.descr}>
+        <div className={classes.header}>{name}</div>
+        <div className={classes.text}>
+          {city}, {country}
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
